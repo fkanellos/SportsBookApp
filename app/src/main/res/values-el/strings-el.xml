@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SportsBook</string>
+    <string name="soccer">Ποδόσφαιρο</string>
+    <string name="basketball">Μπάσκετ</string>
+    <string name="tennis">Τένις</string>
+    <string name="table_tennis">Πινγκ Πονγκ</string>
+    <string name="volleyball">Βόλεϊ</string>
+    <string name="esports">Esports</string>
+    <string name="ice_hockey">Ice Hockey</string>
+    <string name="handball">Χάντμπολ</string>
+    <string name="beach_volleyball">Μπιτς Βόλεϊ</string>
+    <string name="snooker">Σνούκερ</string>
+    <string name="badminton">Μπάτμιντον</string>
+    <string name="formatted_time">%02d:%02d:%02d</string>
+    <string name="networkError">Unknown Error</string>
+    <string name="profile">Προφίλ Χρήστη</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="greeting">Γεια σου Android</string>
+    <string name="en">Αγγλικά</string>
+    <string name="el">Ελληνικά</string>
+    <string name="language">Γλώσσα</string>
+</resources>
