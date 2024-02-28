@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -43,10 +45,12 @@ fun SportCard(
     onFavoriteClick: (String) -> Unit,
     viewModel: MainViewModel
 ) {
+    val isDarkTheme by viewModel.isDarkTheme.observeAsState(false)
     val sportIcon = getSportIconByName(sportName)
     val imageVector = ImageVector.vectorResource(id = sportIcon.drawableRes)
     var isExpanded by remember { mutableStateOf(true) }
-    val isSortingFavoritesEnabled by viewModel.getSortingPreferenceForSport(sportName).observeAsState(false)
+    val isSortingFavoritesEnabled by viewModel.getSortingPreferenceForSport(sportName)
+        .observeAsState(false)
 
     Card(
         modifier = Modifier
@@ -61,16 +65,29 @@ fun SportCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                SportIcon(imageVector, sportName)
+                SportIcon(
+                    imageVector = imageVector,
+                    contentDescription = sportName,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .size(24.dp),
+                    tint = Color.Black
+                )
                 AppText(modifier = Modifier.weight(1f), text = sportName)
                 AppSwitch(
                     checked = isSortingFavoritesEnabled,
-                    onCheckedChange = {viewModel.toggleSportSorting(sportName) }
+                    onCheckedChange = { viewModel.toggleSportSorting(sportName) },
+                    icon = Icons.Filled.Star,
+                    tint = if (isDarkTheme) Color.White else Color.Black
                 )
                 IconButton(onClick = { isExpanded = !isExpanded }) {
                     SportIcon(
                         imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                         contentDescription = if (isExpanded) "Collapse" else "Expand",
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .size(24.dp),
+                        tint = Color.Black
                     )
                 }
             }
@@ -79,7 +96,9 @@ fun SportCard(
                     items(events) { item ->
                         Column {
                             CountdownTimer(eventStartTimeMillis = item.eventStartingTime * Constants.TIME_TO_MS)
-                            FavoriteIcon(isFavorite = item.isFavorite, onClick = { onFavoriteClick(item.eventId) })
+                            FavoriteIcon(
+                                isFavorite = item.isFavorite,
+                                onClick = { onFavoriteClick(item.eventId) })
                             AppText(text = item.team1)
                             AppText(text = item.team2)
                         }

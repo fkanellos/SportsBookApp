@@ -1,28 +1,32 @@
 package gr.sportsbook.ui.components
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 fun AppSwitch(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    icon: ImageVector,
+    tint: Color
 ) {
-    if (onCheckedChange != null) {
-        // The switch itself handles the state change
-        Switch(
-            checked = checked,
-            onCheckedChange = onCheckedChange,
-            modifier = modifier
-        )
-    } else {
-        // The switch is visually interactive but doesn't change its state
-        Switch(
-            checked = checked,
-            onCheckedChange = {},
-            modifier = modifier
-        )
-    }
+    Switch(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        thumbContent = {
+            SportIcon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(SwitchDefaults.IconSize),
+                tint = tint
+            )
+        }
+    )
 }
