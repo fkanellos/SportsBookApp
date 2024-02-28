@@ -133,13 +133,42 @@ The UI layer of the SportsBook app consists of a collection of reusable componen
 Discuss the utility classes and extensions that are part of the project.
 
 ## Main Dependencies
-Retrofit: For network calls.
+- Retrofit: For network calls.
 - Moshi: For JSON parsing.
 - Coroutine Flow: For asynchronous data streaming.
 - Hilt: For dependency injection.
 - Jetpack Compose: For UI development.
 
 ## Screenshots
-(Optionally include screenshots of the app in action.)
+<table>
+  <tr>
+    <th> SportsBookScreen </th>
+    <th> SettingsScreen </th>
+    <th> ProfileScreen </th>
+  </tr>
+  <tr>
+    <td><img width="300" alt="image" src="https://github.com/fkanellos/SportsBookApp/assets/66551122/6ba71c7b-0573-49de-869b-522bcf7cd03d" /></td>
+    <td><img width="300" alt="image" src="https://github.com/fkanellos/SportsBookApp/assets/66551122/a16d0278-c721-4a9a-8fa5-6b72d4fc303b" /></td>
+    <td><img width="300" alt="image" src="https://github.com/fkanellos/SportsBookApp/assets/66551122/635c0790-fcc0-4ec4-88ef-19abcd7778a4" /></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <th> SportsBookScreen </th>
+    <th> SettingsScreen </th>
+    <th> ProfileScreen </th>
+  </tr>
+  <tr>
+    <td><img width="300" alt="image" src="https://github.com/fkanellos/SportsBookApp/assets/66551122/660a3953-d970-4688-bb5e-70df5aa4178b" /></td>
+    <td><img width="300" alt="image" src="https://github.com/fkanellos/SportsBookApp/assets/66551122/2a371ca7-4693-40aa-9c91-675f1deb5c30" /></td>
+    <td><img width="300" alt="image" src="https://github.com/fkanellos/SportsBookApp/assets/66551122/45e1a78d-1772-4341-a083-8fe3747ba639" /></td>
+  </tr>
+</table>
+
+
+
+
+
+
 
 
