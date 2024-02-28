@@ -71,7 +71,7 @@ fun SportCard(
                     modifier = Modifier
                         .padding(8.dp)
                         .size(24.dp),
-                    tint = Color.Black
+                    tint = Color.Unspecified
                 )
                 AppText(modifier = Modifier.weight(1f), text = sportName)
                 AppSwitch(
@@ -87,7 +87,7 @@ fun SportCard(
                         modifier = Modifier
                             .padding(8.dp)
                             .size(24.dp),
-                        tint = Color.Black
+                        tint = Color.Unspecified
                     )
                 }
             }
