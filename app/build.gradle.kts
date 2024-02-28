@@ -100,14 +100,14 @@ dependencies {
 
     implementation(DaggerHilt.hiltAndroid)
     implementation("androidx.test.ext:junit-ktx:1.1.5")
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.2")
     kapt(DaggerHilt.hiltCompiler)
 
     implementation(platform(Compose.composeBom))
 
 // Unit Testing
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:3.3.3")
+    testImplementation("org.mockito:mockito-core:4.7.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
