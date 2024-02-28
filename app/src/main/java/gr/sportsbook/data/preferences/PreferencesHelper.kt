@@ -24,4 +24,12 @@ class PreferencesHelper(
     override fun setDarkThemeEnabled(isEnabled: Boolean) {
         sharedPreferences.edit().putBoolean("dark_theme", isEnabled).apply()
     }
+
+    override fun setToggleEnabled(toggle: String, isEnabled: Boolean) {
+        sharedPreferences.edit().putBoolean(toggle, isEnabled). apply()
+    }
+
+    override fun isToggleEnabled(toggle: String): Boolean {
+        return sharedPreferences.getBoolean(toggle, false)
+    }
 }

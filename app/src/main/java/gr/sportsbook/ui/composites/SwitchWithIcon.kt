@@ -64,7 +64,7 @@ fun SwitchWithIcon(viewModel: MainViewModel) {
             Spacer(modifier = Modifier.weight(1f))
             AppSwitch(
                 checked = isDarkTheme,
-                onCheckedChange = null // We handle the click on the card itself
+                onCheckedChange = {viewModel.toggleTheme(!isDarkTheme)}
             )
         }
     }

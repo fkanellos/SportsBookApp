@@ -16,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -27,21 +28,25 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import gr.sportsbook.Constants
+import gr.sportsbook.ui.components.AppSwitch
 import gr.sportsbook.ui.components.AppText
 import gr.sportsbook.ui.components.FavoriteIcon
 import gr.sportsbook.ui.components.SportIcon
 import gr.sportsbook.ui.model.GameUiModel
 import gr.sportsbook.ui.sportsicons.SportIcon.Companion.getSportIconFromTitle
+import gr.sportsbook.viewmodels.MainViewModel
 
 @Composable
 fun CategoryCard(
     title: String,
     items: List<GameUiModel>,
-    onFavoriteClick: (String) -> Unit
+    onFavoriteClick: (String) -> Unit,
+    viewModel: MainViewModel
 ) {
     val sportIcon = getSportIconFromTitle(title)
     val imageVector = ImageVector.vectorResource(id = sportIcon.drawableRes)
     var isExpanded by remember { mutableStateOf(true) }
+    val isSortingFavoritesEnabled by viewModel.getSortingPreferenceForCategory(title).observeAsState(false)
 
     Card(
         modifier = Modifier
@@ -58,6 +63,10 @@ fun CategoryCard(
             ) {
                 SportIcon(imageVector, title)
                 AppText(modifier = Modifier.weight(1f), text = title)
+                AppSwitch(
+                    checked = isSortingFavoritesEnabled,
+                    onCheckedChange = {viewModel.toggleCategorySorting(title) }
+                )
                 IconButton(onClick = { isExpanded = !isExpanded }) {
                     SportIcon(
                         imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,

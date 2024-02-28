@@ -24,6 +24,11 @@ android {
             useSupportLibrary = true
         }
     }
+    testOptions {
+        unitTests.apply {
+            isIncludeAndroidResources = true
+        }
+    }
 
     buildTypes {
         release {
@@ -99,6 +104,26 @@ dependencies {
     kapt(DaggerHilt.hiltCompiler)
 
     implementation(platform(Compose.composeBom))
+
+// Unit Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:3.3.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // AndroidX Test - Local Unit Tests
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("androidx.test.ext:junit:1.1.5")
+
+    // For LiveData testing
+    testImplementation("androidx.test.ext:junit-ktx:1.1.5")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    // For Coroutine testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("org.mockito:mockito-core:4.7.0") // Adjust the version as needed
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0") // Adjust the version as needed
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // Use the latest version
 
 
 }
