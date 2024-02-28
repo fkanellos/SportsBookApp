@@ -21,7 +21,7 @@ import gr.sportsbook.ui.components.AppIcon
 import gr.sportsbook.ui.components.AppSwitch
 import gr.sportsbook.ui.components.AppText
 import gr.sportsbook.ui.theme.ThemeIcon
-import gr.sportsbook.viewmodels.MainViewModel
+import gr.sportsbook.presentation.MainViewModel
 
 @Composable
 fun SwitchWithIcon(viewModel: MainViewModel) {

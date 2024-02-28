@@ -28,25 +28,25 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import gr.sportsbook.Constants
+import gr.sportsbook.presentation.MainViewModel
 import gr.sportsbook.ui.components.AppSwitch
 import gr.sportsbook.ui.components.AppText
 import gr.sportsbook.ui.components.FavoriteIcon
 import gr.sportsbook.ui.components.SportIcon
-import gr.sportsbook.ui.model.GameUiModel
-import gr.sportsbook.ui.sportsicons.SportIcon.Companion.getSportIconFromTitle
-import gr.sportsbook.viewmodels.MainViewModel
+import gr.sportsbook.ui.model.SportEvent
+import gr.sportsbook.ui.sportsicons.SportIcon.Companion.getSportIconByName
 
 @Composable
-fun CategoryCard(
-    title: String,
-    items: List<GameUiModel>,
+fun SportCard(
+    sportName: String,
+    events: List<SportEvent>,
     onFavoriteClick: (String) -> Unit,
     viewModel: MainViewModel
 ) {
-    val sportIcon = getSportIconFromTitle(title)
+    val sportIcon = getSportIconByName(sportName)
     val imageVector = ImageVector.vectorResource(id = sportIcon.drawableRes)
     var isExpanded by remember { mutableStateOf(true) }
-    val isSortingFavoritesEnabled by viewModel.getSortingPreferenceForCategory(title).observeAsState(false)
+    val isSortingFavoritesEnabled by viewModel.getSortingPreferenceForSport(sportName).observeAsState(false)
 
     Card(
         modifier = Modifier
@@ -61,11 +61,11 @@ fun CategoryCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                SportIcon(imageVector, title)
-                AppText(modifier = Modifier.weight(1f), text = title)
+                SportIcon(imageVector, sportName)
+                AppText(modifier = Modifier.weight(1f), text = sportName)
                 AppSwitch(
                     checked = isSortingFavoritesEnabled,
-                    onCheckedChange = {viewModel.toggleCategorySorting(title) }
+                    onCheckedChange = {viewModel.toggleSportSorting(sportName) }
                 )
                 IconButton(onClick = { isExpanded = !isExpanded }) {
                     SportIcon(
@@ -76,7 +76,7 @@ fun CategoryCard(
             }
             if (isExpanded) {
                 LazyRow {
-                    items(items) { item ->
+                    items(events) { item ->
                         Column {
                             CountdownTimer(eventStartTimeMillis = item.eventStartingTime * Constants.TIME_TO_MS)
                             FavoriteIcon(isFavorite = item.isFavorite, onClick = { onFavoriteClick(item.eventId) })

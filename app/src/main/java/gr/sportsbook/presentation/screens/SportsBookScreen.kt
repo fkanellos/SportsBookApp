@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.screens
+package gr.sportsbook.presentation.screens
 
 import android.annotation.SuppressLint
 import androidx.activity.ComponentActivity
@@ -22,10 +22,10 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.withStarted
 import gr.sportsbook.domain.errorHandling.ErrorType
+import gr.sportsbook.presentation.MainViewModel
 import gr.sportsbook.ui.components.Loader
-import gr.sportsbook.ui.composites.CategoryCard
+import gr.sportsbook.ui.composites.SportCard
 import gr.sportsbook.ui.composites.SportsBookTopBar
-import gr.sportsbook.viewmodels.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -79,11 +79,11 @@ fun SportsBookScreen(
                 Loader()
             } else if (sportsEvents.isNotEmpty()) {
                 LazyColumn(contentPadding = paddingValues) {
-                    items(sportsEvents) { sportCategory ->
-                        CategoryCard(
-                            title = sportCategory.title,
-                            items = sportCategory.games,
-                            onFavoriteClick = { viewModel.favoriteIcon(it, sportCategory.title) },
+                    items(sportsEvents) { sport ->
+                        SportCard(
+                            sportName = sport.sportName,
+                            events = sport.events,
+                            onFavoriteClick = { viewModel.favoriteIcon(it, sport.sportName) },
                             viewModel
                         )
                     }

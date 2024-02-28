@@ -1,9 +1,8 @@
-package gr.sportsbook.ui.screens
+package gr.sportsbook.presentation.screens
 
-import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -16,38 +15,21 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.hilt.navigation.compose.hiltViewModel
-import gr.sportsbook.ui.composites.SwitchWithIcon
-import gr.sportsbook.viewmodels.MainViewModel
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(
+fun ProfileScreen(
     onBackPress: () -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        val viewModel: MainViewModel = hiltViewModel(LocalContext.current as ComponentActivity)
         val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-        val uiRefreshTrigger by viewModel.uiRefreshTrigger.observeAsState()
-
-        LaunchedEffect(uiRefreshTrigger) {
-            if (uiRefreshTrigger == true) {
-                // Perform actions to refresh the UI, like navigating back
-                viewModel.refreshUI()
-                // Reset the trigger
-                viewModel.resetUIRefreshTrigger()
-            }
-        }
         Scaffold(
             modifier = Modifier
                 .fillMaxSize()
@@ -56,7 +38,7 @@ fun SettingsScreen(
                 CenterAlignedTopAppBar(
                     title = {
                         Text(
-                            "Settings",
+                            "Profile",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -73,14 +55,17 @@ fun SettingsScreen(
                 )
             }
         ) { values ->
-
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(values)
             ) {
-                SwitchWithIcon(viewModel)
-
+                items(5) {
+                    Text(
+                        text = "Item$it",
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
             }
         }
     }

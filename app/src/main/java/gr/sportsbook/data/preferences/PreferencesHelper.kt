@@ -5,7 +5,7 @@ import gr.sportsbook.domain.preferences.Preferences
 
 class PreferencesHelper(
     private val sharedPreferences: SharedPreferences
-) : Preferences{
+) : Preferences {
 
     override fun saveFavorites(favoriteIds: Set<String>) {
         val editor = sharedPreferences.edit()

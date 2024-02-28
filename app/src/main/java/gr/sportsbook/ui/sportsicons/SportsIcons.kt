@@ -18,7 +18,7 @@ enum class SportIcon(val drawableRes: Int) {
     DARTS(R.drawable.darts);
 
     companion object {
-        fun getSportIconFromTitle(title: String): SportIcon {
+        fun getSportIconByName(title: String): SportIcon {
             val formattedTitle = title.replace(" ", "_").uppercase()
             return try {
                 valueOf(formattedTitle)

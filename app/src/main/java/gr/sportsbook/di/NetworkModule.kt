@@ -1,4 +1,4 @@
-package gr.sportsbook.data.remote.di
+package gr.sportsbook.di
 
 import dagger.Module
 import dagger.Provides

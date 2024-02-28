@@ -1,20 +1,20 @@
 package gr.sportsbook.utils
 
 import android.util.Log
-import gr.sportsbook.ui.model.Category
-import gr.sportsbook.ui.model.GameUiModel
+import gr.sportsbook.ui.model.Sport
+import gr.sportsbook.ui.model.SportEvent
 
-fun List<Category>.sortCategoryFavorites(): List<Category> {
+fun List<Sport>.sortSportsFavorites(): List<Sport> {
     Log.i("mainviewmodel","sortFavorites")
-    return this.map { category ->
-        category.copy(games = category.games.sortedWith(
-            compareByDescending<GameUiModel> { it.isFavorite }.thenBy { it.eventId }
+    return this.map { sport ->
+        sport.copy(events = sport.events.sortedWith(
+            compareByDescending<SportEvent> { it.isFavorite }.thenBy { it.eventId }
         ))
     }
 }
-fun List<GameUiModel>.sortGameUiModelByFavorites(): List<GameUiModel> {
+fun List<SportEvent>.sortSportEventByFavorites(): List<SportEvent> {
     Log.i("mainviewmodel", "sortFavorites")
     return this.sortedWith(
-        compareByDescending<GameUiModel> { it.isFavorite }.thenBy { it.eventId }
+        compareByDescending<SportEvent> { it.isFavorite }.thenBy { it.eventId }
     )
 }

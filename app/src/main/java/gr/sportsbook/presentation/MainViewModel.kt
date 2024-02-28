@@ -1,4 +1,4 @@
-package gr.sportsbook.viewmodels
+package gr.sportsbook.presentation
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -14,10 +14,10 @@ import gr.sportsbook.domain.errorHandling.ErrorState
 import gr.sportsbook.domain.errorHandling.ErrorType
 import gr.sportsbook.domain.preferences.Preferences
 import gr.sportsbook.domain.repository.SportsRepository
-import gr.sportsbook.ui.model.Category
-import gr.sportsbook.ui.model.GameUiModel
-import gr.sportsbook.utils.sortCategoryFavorites
-import gr.sportsbook.utils.sortGameUiModelByFavorites
+import gr.sportsbook.ui.model.Sport
+import gr.sportsbook.ui.model.SportEvent
+import gr.sportsbook.utils.sortSportEventByFavorites
+import gr.sportsbook.utils.sortSportsFavorites
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
@@ -29,8 +29,8 @@ class MainViewModel @Inject constructor(
     private val prefs: Preferences
 ) : ViewModel() {
 
-    private val _sportsEvents = MutableLiveData<List<Category>>(emptyList())
-    val sportsEvents: LiveData<List<Category>> = _sportsEvents
+    private val _sportsEvents = MutableLiveData<List<Sport>>(emptyList())
+    val sportsEvents: LiveData<List<Sport>> = _sportsEvents
 
     private val _isLoading = MutableLiveData<Boolean>(true)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -38,7 +38,7 @@ class MainViewModel @Inject constructor(
     private val _isDarkTheme = MutableLiveData(prefs.isToggleEnabled("darkTheme"))
     val isDarkTheme: LiveData<Boolean> = _isDarkTheme
 
-    private val _categorySortingPreferences = mutableMapOf<String, MutableLiveData<Boolean>>()
+    private val _sportSortingPreferences = mutableMapOf<String, MutableLiveData<Boolean>>()
 
     private val _uiRefreshTrigger = MutableLiveData<Boolean>()
     val uiRefreshTrigger: LiveData<Boolean> = _uiRefreshTrigger
@@ -61,7 +61,7 @@ class MainViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 sportsRepository.getSportsEvents().collect { data ->
-                    _sportsEvents.value = data.mapToCategories()
+                    _sportsEvents.value = data.mapToSports()
                     _isLoading.value = false
                     loadFavorites()
                     clearErrorState()
@@ -72,19 +72,19 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    // Convert API response to list of Category
-    private fun List<SportsResponseItem>.mapToCategories() = map { it.toCategory() }
+    // Convert API response to list of Sport
+    private fun List<SportsResponseItem>.mapToSports() = map { it.toSport() }
 
-    // Convert individual SportsResponseItem to Category
-    private fun SportsResponseItem.toCategory() = Category(
-        title = sportName,
-        games = activeEvents.map { it.toGameUiModel() }
+    // Convert individual SportsResponseItem to Sport
+    private fun SportsResponseItem.toSport() = Sport(
+        sportName = sportName,
+        events = activeEvents.map { it.toSportEvent() }
     )
 
-    // Convert GameDetailsInfo to GameUiModel
-    private fun GameDetailsInfo.toGameUiModel(): GameUiModel {
+    // Convert GameDetailsInfo to SportEvent
+    private fun GameDetailsInfo.toSportEvent(): SportEvent {
         val (team1, team2) = eventName.split(" - ", limit = 2)
-        return GameUiModel(
+        return SportEvent(
             team1 = team1,
             team2 = team2,
             eventStartingTime = eventStartingTime,
@@ -92,21 +92,21 @@ class MainViewModel @Inject constructor(
         )
     }
 
-    fun favoriteIcon(eventId: String, sportCategoryTitleTitle: String) {
+    fun favoriteIcon(eventId: String, sportName: String) {
         Log.i("mainviewmodel", "favoriteIcon")
         viewModelScope.launch {
             try {
                 val currentList = _sportsEvents.value
                 val isSortingEnabled =
-                    getSortingPreferenceForCategory(sportCategoryTitleTitle).value ?: false
+                    getSortingPreferenceForSport(sportName).value ?: false
                 if (currentList != null) {
-                    val updatedList = currentList.map { category ->
-                        category.copy(games = category.games.map { game ->
+                    val updatedList = currentList.map { sport ->
+                        sport.copy(events = sport.events.map { game ->
                             if (game.eventId == eventId) game.copy(isFavorite = !game.isFavorite) else game
                         })
                     }
                     if (isSortingEnabled) {
-                        _sportsEvents.postValue(updatedList.sortCategoryFavorites())
+                        _sportsEvents.postValue(updatedList.sortSportsFavorites())
                     } else {
                         _sportsEvents.postValue(updatedList)
                     }
@@ -125,17 +125,17 @@ class MainViewModel @Inject constructor(
                 val currentList = _sportsEvents.value
                 if (currentList != null) {
                     val favoriteIds = prefs.loadFavorites()
-                    val updatedList = currentList.map { category ->
+                    val updatedList = currentList.map { sport ->
                         val isSortEnabled =
-                            getSortingPreferenceForCategory(category.title).value ?: false
-                        val updatedGames = category.games.map { game ->
+                            getSortingPreferenceForSport(sport.sportName).value ?: false
+                        val updatedGames = sport.events.map { game ->
                             game.copy(isFavorite = favoriteIds.contains(game.eventId))
                         }
 
                         if (isSortEnabled) {
-                            category.copy(games = updatedGames.sortGameUiModelByFavorites())
+                            sport.copy(events = updatedGames.sortSportEventByFavorites())
                         } else {
-                            category.copy(games = updatedGames)
+                            sport.copy(events = updatedGames)
                         }
                     }
 
@@ -149,7 +149,7 @@ class MainViewModel @Inject constructor(
 
     private fun saveFavorites() {
         val favoriteIds = _sportsEvents.value
-            ?.flatMap { it.games }
+            ?.flatMap { it.events }
             ?.filter { it.isFavorite }
             ?.map { it.eventId }
             ?.toSet()
@@ -162,41 +162,41 @@ class MainViewModel @Inject constructor(
         prefs.setToggleEnabled("darkTheme", isEnabled)
     }
 
-    fun getSortingPreferenceForCategory(category: String): LiveData<Boolean> {
-        Log.i("mainviewmodel", "getSortingPreferenceForCategory")
-        if (!_categorySortingPreferences.containsKey(category)) {
-            _categorySortingPreferences[category] = MutableLiveData(prefs.isToggleEnabled(category))
+    fun getSortingPreferenceForSport(sport: String): LiveData<Boolean> {
+        Log.i("mainviewmodel", "getSortingPreferenceForSport")
+        if (!_sportSortingPreferences.containsKey(sport)) {
+            _sportSortingPreferences[sport] = MutableLiveData(prefs.isToggleEnabled(sport))
         }
-        return _categorySortingPreferences[category]!!
+        return _sportSortingPreferences[sport]!!
     }
 
-    fun toggleCategorySorting(category: String) {
-        Log.i("mainviewmodel", "toggleCategorySorting")
-        val currentValue = _categorySortingPreferences[category]?.value ?: false
-        _categorySortingPreferences[category]?.value = !currentValue
-        prefs.setToggleEnabled(category, !currentValue)
+    fun toggleSportSorting(sport: String) {
+        Log.i("mainviewmodel", "toggleSportSorting")
+        val currentValue = _sportSortingPreferences[sport]?.value ?: false
+        _sportSortingPreferences[sport]?.value = !currentValue
+        prefs.setToggleEnabled(sport, !currentValue)
 
         if (!currentValue) {
-            sortFavoritesByCategory(category)
+            sortFavoritesBySport(sport)
         } else {
-            resetCategorySort(category)
+            resetSportSort(sport)
         }
     }
 
-    private fun sortFavoritesByCategory(category: String) {
-        Log.i("mainviewmodel", "sortFavoritesByCategory")
+    private fun sortFavoritesBySport(sport: String) {
+        Log.i("mainviewmodel", "sortFavoritesBySport")
         viewModelScope.launch {
             try {
                 val currentList = _sportsEvents.value
                 if (currentList != null) {
-                    val updatedList = currentList.map { categoryItem ->
-                        if (categoryItem.title == category && categoryItem.games.any { it.isFavorite }) {
-                            // Sort the games within this category
-                            categoryItem.copy(games = categoryItem.games.sortedWith(
-                                compareByDescending<GameUiModel> { it.isFavorite }.thenBy { it.eventStartingTime }
+                    val updatedList = currentList.map { sportItem ->
+                        if (sportItem.sportName == sport && sportItem.events.any { it.isFavorite }) {
+                            // Sort the games within this Sport
+                            sportItem.copy(events = sportItem.events.sortedWith(
+                                compareByDescending<SportEvent> { it.isFavorite }.thenBy { it.eventStartingTime }
                             ))
                         } else {
-                            categoryItem
+                            sportItem
                         }
                     }
                     _sportsEvents.postValue(updatedList)
@@ -207,18 +207,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun resetCategorySort(category: String) {
-        Log.i("mainviewmodel", "resetCategorySort")
+    private fun resetSportSort(sport: String) {
+        Log.i("mainviewmodel", "resetSportSort")
         viewModelScope.launch {
             try {
                 val currentList = _sportsEvents.value
                 if (currentList != null) {
-                    val updatedList = currentList.map { categoryItem ->
-                        if (categoryItem.title == category) {
-                            // Reset the games sorting within this category
-                            categoryItem.copy(games = categoryItem.games.shuffled())
+                    val updatedList = currentList.map { sportItem ->
+                        if (sportItem.sportName == sport) {
+                            // Reset the games sorting within this Sport
+                            sportItem.copy(events = sportItem.events.shuffled())
                         } else {
-                            categoryItem
+                            sportItem
                         }
                     }
                     _sportsEvents.postValue(updatedList)
@@ -249,7 +249,7 @@ class MainViewModel @Inject constructor(
         val errorMessage = when (errorType) {
             ErrorType.NETWORK -> "The connection has been lost. Please check your internet connection."
             ErrorType.SERVER -> "Cannot connect to the server. Please try again later."
-            ErrorType.GENERAL -> "An unknown error occurred. Please try again."
+            ErrorType.GENERAL -> "Something went wrong. Please try again later."
             else -> ""
         }
 

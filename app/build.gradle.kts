@@ -60,6 +60,7 @@ dependencies {
 
     implementation(Compose.compiler)
     implementation(Compose.ui)
+    implementation(Compose.uiAndroid)
     implementation(Compose.uiToolingPreview)
     implementation(Compose.hiltNavigationCompose)
     implementation(Compose.liveData)
