@@ -14,7 +14,8 @@ fun AppSwitch(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     icon: ImageVector,
-    tint: Color
+    tint: Color,
+    contentDescription: String
 ) {
     Switch(
         checked = checked,
@@ -23,7 +24,7 @@ fun AppSwitch(
         thumbContent = {
             SportIcon(
                 imageVector = icon,
-                contentDescription = null,
+                contentDescription = contentDescription,
                 modifier = Modifier.size(SwitchDefaults.IconSize),
                 tint = tint
             )

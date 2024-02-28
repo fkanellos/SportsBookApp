@@ -70,7 +70,8 @@ fun SwitchWithIcon(viewModel: MainViewModel) {
                 checked = isDarkTheme,
                 onCheckedChange = {viewModel.toggleTheme(!isDarkTheme)},
                 icon = if (isDarkTheme) Icons.Default.Check else Icons.Default.Close,
-                tint = if (isDarkTheme) Color.White else Color.Black
+                tint = if (isDarkTheme) Color.White else Color.Black,
+                contentDescription = "darkMode toggle"
             )
         }
     }

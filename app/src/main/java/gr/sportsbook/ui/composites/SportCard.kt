@@ -78,7 +78,8 @@ fun SportCard(
                     checked = isSortingFavoritesEnabled,
                     onCheckedChange = { viewModel.toggleSportSorting(sportName) },
                     icon = Icons.Filled.Star,
-                    tint = if (isDarkTheme) Color.White else Color.Black
+                    tint = if (isDarkTheme) Color.White else Color.Black,
+                    contentDescription = "favorite toggle"
                 )
                 IconButton(onClick = { isExpanded = !isExpanded }) {
                     SportIcon(
