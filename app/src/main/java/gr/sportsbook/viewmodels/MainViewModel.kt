@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil.network.HttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import gr.sportsbook.data.remote.dao.GameDetailsInfo
 import gr.sportsbook.data.remote.dao.SportsResponseItem
-import gr.sportsbook.data.repository.SportsEventResult
+import gr.sportsbook.domain.errorHandling.ErrorAction
+import gr.sportsbook.domain.errorHandling.ErrorState
+import gr.sportsbook.domain.errorHandling.ErrorType
 import gr.sportsbook.domain.preferences.Preferences
 import gr.sportsbook.domain.repository.SportsRepository
 import gr.sportsbook.ui.model.Category
@@ -16,6 +19,7 @@ import gr.sportsbook.ui.model.GameUiModel
 import gr.sportsbook.utils.sortCategoryFavorites
 import gr.sportsbook.utils.sortGameUiModelByFavorites
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 
@@ -39,8 +43,8 @@ class MainViewModel @Inject constructor(
     private val _uiRefreshTrigger = MutableLiveData<Boolean>()
     val uiRefreshTrigger: LiveData<Boolean> = _uiRefreshTrigger
 
-    private val _error = MutableLiveData<Throwable?>()
-    val error: LiveData<Throwable?> = _error
+    private val _errorState = MutableLiveData<ErrorState>()
+    val errorState: LiveData<ErrorState> = _errorState
 
 
     init {
@@ -51,38 +55,21 @@ class MainViewModel @Inject constructor(
         _sportsEvents.value.takeIf { it.isNullOrEmpty() }?.let { fetchData() }
     }
 
-    private fun fetchData() {
+    fun fetchData() {
         Log.i("MainViewModel", "fetchData")
         viewModelScope.launch {
+            _isLoading.value = true
             try {
-                _isLoading.value = true
-                sportsRepository.getSportsEvents().collect { result ->
-                    handleSportsEventResult(result)
+                sportsRepository.getSportsEvents().collect { data ->
+                    _sportsEvents.value = data.mapToCategories()
+                    _isLoading.value = false
+                    loadFavorites()
+                    clearErrorState()
                 }
             } catch (e: Exception) {
-                _isLoading.value = false
-                _error.value = e
+                handleError(e)
             }
         }
-    }
-
-    private fun handleSportsEventResult(result: SportsEventResult) {
-        when (result) {
-            is SportsEventResult.Success -> handleSuccessResult(result)
-            is SportsEventResult.Error -> handleErrorResult(result)
-        }
-    }
-
-    private fun handleSuccessResult(result: SportsEventResult.Success) {
-        val categoriesList = result.data.mapToCategories()
-        _sportsEvents.value = categoriesList
-        _isLoading.value = false
-        loadFavorites()
-    }
-
-    private fun handleErrorResult(result: SportsEventResult.Error) {
-        _isLoading.value = false
-        _error.value = result.exception
     }
 
     // Convert API response to list of Category
@@ -105,13 +92,13 @@ class MainViewModel @Inject constructor(
         )
     }
 
-
     fun favoriteIcon(eventId: String, sportCategoryTitleTitle: String) {
         Log.i("mainviewmodel", "favoriteIcon")
         viewModelScope.launch {
             try {
                 val currentList = _sportsEvents.value
-                val isSortingEnabled = getSortingPreferenceForCategory(sportCategoryTitleTitle).value ?: false
+                val isSortingEnabled =
+                    getSortingPreferenceForCategory(sportCategoryTitleTitle).value ?: false
                 if (currentList != null) {
                     val updatedList = currentList.map { category ->
                         category.copy(games = category.games.map { game ->
@@ -126,12 +113,10 @@ class MainViewModel @Inject constructor(
                     saveFavorites()
                 }
             } catch (e: Exception) {
-                _isLoading.value = false
-                _error.value = e
+                handleError(e)
             }
         }
     }
-
 
     private fun loadFavorites() {
         Log.i("mainviewmodel", "loadFavorites")
@@ -157,8 +142,7 @@ class MainViewModel @Inject constructor(
                     _sportsEvents.postValue(updatedList)
                 }
             } catch (e: Exception) {
-                _isLoading.value = false
-                _error.value = e
+                handleError(e)
             }
         }
     }
@@ -218,8 +202,7 @@ class MainViewModel @Inject constructor(
                     _sportsEvents.postValue(updatedList)
                 }
             } catch (e: Exception) {
-                _isLoading.value = false
-                _error.value = e
+                handleError(e)
             }
         }
     }
@@ -241,8 +224,7 @@ class MainViewModel @Inject constructor(
                     _sportsEvents.postValue(updatedList)
                 }
             } catch (e: Exception) {
-                _isLoading.value = false
-                _error.value = e
+                handleError(e)
             }
         }
     }
@@ -254,5 +236,40 @@ class MainViewModel @Inject constructor(
 
     fun resetUIRefreshTrigger() {
         _uiRefreshTrigger.value = false
+    }
+
+    private fun handleError(exception: Throwable) {
+        _isLoading.value = false
+        val errorType = when (exception) {
+            is IOException -> ErrorType.NETWORK
+            is HttpException -> ErrorType.SERVER
+            else -> ErrorType.GENERAL
+        }
+
+        val errorMessage = when (errorType) {
+            ErrorType.NETWORK -> "The connection has been lost. Please check your internet connection."
+            ErrorType.SERVER -> "Cannot connect to the server. Please try again later."
+            ErrorType.GENERAL -> "An unknown error occurred. Please try again."
+            else -> ""
+        }
+
+        val errorAction = when (errorType) {
+            ErrorType.NETWORK -> ErrorAction("Retry") { fetchData() }
+            else -> null
+        }
+
+        _errorState.value = ErrorState(
+            message = errorMessage,
+            errorType = errorType,
+            action = errorAction
+        )
+    }
+
+    fun clearErrorState() {
+        _errorState.value = ErrorState(
+            message = "",
+            errorType = ErrorType.NONE,
+            action = null
+        )
     }
 }
