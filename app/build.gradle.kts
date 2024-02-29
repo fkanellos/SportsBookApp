@@ -99,97 +99,47 @@ dependencies {
 
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
+    kapt(DaggerHilt.hiltCompiler)
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation(DaggerHilt.hiltAndroid)
     implementation("androidx.test.ext:junit-ktx:1.1.5")
     implementation("androidx.test:runner:1.5.2")
     implementation("com.google.ar:core:1.41.0")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    kapt(DaggerHilt.hiltCompiler)
-
     implementation(platform(Compose.composeBom))
 
-    // Unit Testing
-    testImplementation("junit:junit:4.13.2")
+    // JUnit Jupiter (JUnit 5) for unit testing
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+
+    // Kotlin coroutines testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // Mockito for mocking in tests
     testImplementation("org.mockito:mockito-core:4.7.0")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
-    // AndroidX Test - Local Unit Tests
-    testImplementation("androidx.test:core:1.5.0")
-    testImplementation("androidx.test.ext:junit:1.1.5")
-
-    // For LiveData testing
-    testImplementation("androidx.test.ext:junit-ktx:1.1.5")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-
-    // For Coroutine testing
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("org.mockito:mockito-core:4.7.0") // Adjust the version as needed
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0") // Adjust the version as needed
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // Use the latest version
-
-    // Test
+    // AssertK for fluent assertions in Kotlin
     testImplementation("com.willowtreeapps.assertk:assertk:0.26.1")
+
+    // MockK for Kotlin specific mocking
     testImplementation("io.mockk:mockk:1.12.5")
+
+    // MockWebServer for testing network calls
     testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // Turbine for testing flows
     testImplementation("app.cash.turbine:turbine:0.7.0")
 
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // Android compose UI testing
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.2")
 
-    // Test
-    testImplementation("com.willowtreeapps.assertk:assertk:0.26.1")
-    testImplementation("io.mockk:mockk:1.12.5")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
-
-    // Android test
-    androidTestImplementation("io.mockk:mockk-android:1.12.5")
-
-    // Android test
-    androidTestImplementation("io.mockk:mockk-android:1.12.5")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    androidTestImplementation("app.cash.turbine:turbine:0.7.0")
-
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.2")
-
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.2")
+    // Dagger Hilt testing
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.45")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.50")
-    androidTestImplementation("androidx.test:core:1.5.0")
-    testImplementation("org.mockito:mockito-core:4.7.0")
-    // For Robolectric tests.
-    testImplementation("com.google.dagger:hilt-android-testing:2.45")
-    // ...with Kotlin.
-    kaptTest("com.google.dagger:hilt-android-compiler:2.50")
-    // ...with Java.
-    testAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.50")
 
-
-    // For instrumented tests.
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.45")
-    // ...with Kotlin.
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.50")
-    // ...with Java.
-    androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.50")
-
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    // Test
-    testImplementation("com.willowtreeapps.assertk:assertk:0.26.1")
-    testImplementation("io.mockk:mockk:1.12.5")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
-
-    // Android test
-    androidTestImplementation("io.mockk:mockk-android:1.12.5")
-
-
-
-
+    // Robolectric for Android framework mocking in tests
+    testImplementation("org.robolectric:robolectric:4.7.3")
 
 }
