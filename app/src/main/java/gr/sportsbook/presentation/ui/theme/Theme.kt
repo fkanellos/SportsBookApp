@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.theme
+package gr.sportsbook.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,7 +1,7 @@
 package gr.sportsbook.utils
 
-import gr.sportsbook.ui.model.Sport
-import gr.sportsbook.ui.model.SportEvent
+import gr.sportsbook.data.model.Sport
+import gr.sportsbook.data.model.SportEvent
 import java.util.concurrent.TimeUnit
 
 fun List<Sport>.sortSportsFavorites(): List<Sport> {

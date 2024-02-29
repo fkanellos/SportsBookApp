@@ -25,9 +25,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.withStarted
 import gr.sportsbook.domain.errorHandling.ErrorType
 import gr.sportsbook.presentation.MainViewModel
-import gr.sportsbook.ui.components.Loader
-import gr.sportsbook.ui.composites.SportCard
-import gr.sportsbook.ui.composites.SportsBookTopBar
+import gr.sportsbook.presentation.ui.components.Loader
+import gr.sportsbook.presentation.ui.composites.SportCard
+import gr.sportsbook.presentation.ui.composites.SportsBookTopBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

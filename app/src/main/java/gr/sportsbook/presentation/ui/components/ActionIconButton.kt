@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.components
+package gr.sportsbook.presentation.ui.components
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton

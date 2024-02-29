@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.composites
+package gr.sportsbook.presentation.ui.composites
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import gr.sportsbook.ui.components.ActionIconButton
+import gr.sportsbook.presentation.ui.components.ActionIconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.composites
+package gr.sportsbook.presentation.ui.composites
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -31,12 +31,12 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import gr.sportsbook.Constants
 import gr.sportsbook.presentation.MainViewModel
-import gr.sportsbook.ui.components.AppSwitch
-import gr.sportsbook.ui.components.AppText
-import gr.sportsbook.ui.components.FavoriteIcon
-import gr.sportsbook.ui.components.SportIcon
-import gr.sportsbook.ui.model.SportEvent
-import gr.sportsbook.ui.sportsicons.SportIcon.Companion.getSportIconByName
+import gr.sportsbook.presentation.ui.components.AppSwitch
+import gr.sportsbook.presentation.ui.components.AppText
+import gr.sportsbook.presentation.ui.components.FavoriteIcon
+import gr.sportsbook.presentation.ui.components.SportIcon
+import gr.sportsbook.data.model.SportEvent
+import gr.sportsbook.presentation.ui.sportsicons.SportIcon.Companion.getSportIconByName
 
 @Composable
 fun SportCard(

@@ -1,7 +1,7 @@
 package gr.sportsbook.utils
 
-import gr.sportsbook.ui.model.Sport
-import gr.sportsbook.ui.model.SportEvent
+import gr.sportsbook.data.model.Sport
+import gr.sportsbook.data.model.SportEvent
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource

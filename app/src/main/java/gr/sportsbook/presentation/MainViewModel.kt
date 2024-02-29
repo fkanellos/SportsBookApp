@@ -14,8 +14,8 @@ import gr.sportsbook.domain.errorHandling.ErrorState
 import gr.sportsbook.domain.errorHandling.ErrorType
 import gr.sportsbook.domain.preferences.Preferences
 import gr.sportsbook.domain.repository.SportsRepository
-import gr.sportsbook.ui.model.Sport
-import gr.sportsbook.ui.model.SportEvent
+import gr.sportsbook.data.model.Sport
+import gr.sportsbook.data.model.SportEvent
 import gr.sportsbook.utils.sortSportEventByFavorites
 import gr.sportsbook.utils.sortSportsFavorites
 import kotlinx.coroutines.launch
