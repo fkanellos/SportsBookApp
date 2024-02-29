@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gr.sportsbook.data.remote.api.SportsApi
 import gr.sportsbook.navigation.Route
 import gr.sportsbook.navigation.SportsBookNavigation
-import gr.sportsbook.ui.theme.SportsBookTheme
+import gr.sportsbook.presentation.ui.theme.SportsBookTheme
 import gr.sportsbook.presentation.MainViewModel
 import javax.inject.Inject
 @AndroidEntryPoint

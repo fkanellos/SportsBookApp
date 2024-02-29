@@ -7,7 +7,6 @@ buildscript {
     dependencies {
         classpath(Build.androidBuildTools)
         classpath(Build.kotlinGradlePlugin)
-        classpath(Navigation.navigationSafeArgsKtx)
         classpath(DaggerHilt.hiltGradlePlugin)
     }
 }

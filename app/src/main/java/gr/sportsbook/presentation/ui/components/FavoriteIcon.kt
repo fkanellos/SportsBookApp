@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.components
+package gr.sportsbook.presentation.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding

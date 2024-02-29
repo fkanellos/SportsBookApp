@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.components
+package gr.sportsbook.presentation.ui.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Switch

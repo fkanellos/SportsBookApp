@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.theme
+package gr.sportsbook.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -58,88 +58,55 @@ android {
 }
 
 dependencies {
+    // AndroidX Libraries
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.appCompat)
+    implementation(AndroidX.material3)
+    implementation(General.constraintLayout)
 
+    // Compose Libraries
+    implementation(platform(Compose.composeBom))
     implementation(Compose.compiler)
     implementation(Compose.ui)
     implementation(Compose.uiAndroid)
     implementation(Compose.uiToolingPreview)
-    implementation(Compose.hiltNavigationCompose)
-    implementation(Compose.liveData)
-    implementation(AndroidX.material3)
     implementation(Compose.runtime)
+    implementation(Compose.liveData)
     implementation(Compose.navigation)
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
+    implementation(Compose.hiltNavigationCompose)
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    // Kotlin Standard Library
     implementation(Kotlin.kotlinStdLib)
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
-    implementation(General.constraintLayout)
 
-    implementation(Retrofit.okHttp)
+    // Networking Libraries
     implementation(Retrofit.retrofit)
     implementation(Retrofit.okHttpLoggingInterceptor)
     implementation(Retrofit.moshiConverter)
-
     implementation(General.volley)
+
+    // Google Material Design & Other UI Components
+    implementation(Google.material)
     implementation(General.materialDialogs)
     implementation(General.snackbar)
 
-    implementation(Google.material)
-
+    // Image Loading
     implementation(Coil.coilCompose)
 
-    // Logging framework
-    implementation(Logging.slf4j)
-    implementation(Logging.logback)
-    implementation(Logging.securityLogging) {
-        exclude(group = "ch.qos.logback")
-    }
-
-    implementation(Navigation.navigationFragmentKtx)
-    implementation(Navigation.navigationUiKtx)
-    kapt(DaggerHilt.hiltCompiler)
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
+    // Dagger Hilt (Dependency Injection)
     implementation(DaggerHilt.hiltAndroid)
-    implementation("androidx.test.ext:junit-ktx:1.1.5")
-    implementation("androidx.test:runner:1.5.2")
-    implementation("com.google.ar:core:1.41.0")
-    implementation(platform(Compose.composeBom))
+    kapt(DaggerHilt.hiltCompiler)
+    androidTestImplementation(DaggerHilt.hiltAndroidTesting)
+    kaptAndroidTest(DaggerHilt.hiltAndroidCompiler)
 
-    // JUnit Jupiter (JUnit 5) for unit testing
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    // Testing Libraries
+    implementation(TestingLibs.junitKtx)
+    implementation(TestingLibs.androidTestRunner)
+    testImplementation(TestingLibs.junitJupiter)
+    testImplementation(TestingLibs.kotlinxCoroutinesTest)
+    androidTestImplementation(TestingLibs.composeUiTestJunit4)
 
-    // Kotlin coroutines testing
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-
-    // Mockito for mocking in tests
-    testImplementation("org.mockito:mockito-core:4.7.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-
-    // AssertK for fluent assertions in Kotlin
-    testImplementation("com.willowtreeapps.assertk:assertk:0.26.1")
-
-    // MockK for Kotlin specific mocking
-    testImplementation("io.mockk:mockk:1.12.5")
-
-    // MockWebServer for testing network calls
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
-
-    // Turbine for testing flows
-    testImplementation("app.cash.turbine:turbine:0.7.0")
-
-    // Android compose UI testing
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.2")
-
-    // Dagger Hilt testing
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.45")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.50")
-
-    // Robolectric for Android framework mocking in tests
-    testImplementation("org.robolectric:robolectric:4.7.3")
-
+    // Local Jar Dependencies
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }

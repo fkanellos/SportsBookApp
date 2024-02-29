@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.sportsicons
+package gr.sportsbook.presentation.ui.sportsicons
 
 import gr.sportsbook.R
 

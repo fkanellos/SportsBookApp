@@ -4,7 +4,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import gr.sportsbook.ui.components.AppText
+import gr.sportsbook.presentation.ui.components.AppText
 
 @Composable
 fun DropDownMenu(

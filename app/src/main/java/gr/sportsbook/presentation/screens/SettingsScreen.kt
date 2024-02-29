@@ -24,7 +24,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
-import gr.sportsbook.ui.composites.SwitchWithIcon
+import gr.sportsbook.presentation.ui.composites.SwitchWithIcon
 import gr.sportsbook.presentation.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.model
+package gr.sportsbook.data.model
 
 // Sample data class
 data class Sport(

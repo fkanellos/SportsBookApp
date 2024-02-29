@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.composites
+package gr.sportsbook.presentation.ui.composites
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -9,7 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import gr.sportsbook.ui.components.AppText
+import gr.sportsbook.presentation.ui.components.AppText
 import gr.sportsbook.utils.toCountdownFormat
 import kotlinx.coroutines.delay
 

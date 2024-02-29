@@ -11,7 +11,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import gr.sportsbook.MainActivity
 import gr.sportsbook.navigation.Route
 import gr.sportsbook.presentation.AppScreensRobot
-import gr.sportsbook.ui.theme.SportsBookTheme
+import gr.sportsbook.presentation.ui.theme.SportsBookTheme
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
