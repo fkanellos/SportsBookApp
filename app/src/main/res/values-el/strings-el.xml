@@ -20,4 +20,5 @@
     <string name="en">Αγγλικά</string>
     <string name="el">Ελληνικά</string>
     <string name="language">Γλώσσα</string>
+    <string name="profile_welcome_text">Καλώς ήρθατε στο προφίλ σας!</string>
 </resources>

@@ -19,4 +19,5 @@
     <string name="en">English</string>
     <string name="el">Greek</string>
     <string name="language">Language</string>
+    <string name="profile_welcome_text">Welcome to Your Profile!</string>
 </resources>
