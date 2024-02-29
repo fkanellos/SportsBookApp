@@ -117,7 +117,6 @@ The UI layer of the SportsBook app consists of a collection of reusable componen
 - `ActionIconButton`: A customizable icon button used throughout the app for user actions.
 - `AppSwitch`: A toggle switch for settings such as the dark mode.
 - `AppText`: A stylized text component used for displaying information.
-- `DropDownMenu`: Provides a dropdown menu for user selections.
 - `FavoriteIcon`: Indicates and toggles the favorite status of sports events.
 - `Loader`: Displays a loading animation during data fetching operations.
 - `SportIcon`: Represents sports with icons.
