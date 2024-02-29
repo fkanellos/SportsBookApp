@@ -9,9 +9,6 @@ SportsBook is an Android application that showcases upcoming sports events. Buil
 - Countdown timer for each event.
 - Dark mode toggle for theme preference.
 
-## Installation
-Instructions on how to clone/download and set up the project locally.
-
 ## Architecture
 The app follows the Model-View-ViewModel (MVVM) architecture pattern:
 
@@ -103,9 +100,6 @@ The main screen of the app, `SportsBookScreen`, presents the upcoming sports eve
 - Includes a `SnackbarHost` for showing messages and actions based on events such as errors or updates.
 - A dynamic UI that responds to live data changes and user interactions.
 
-
-
-
 ### UI
 The UI layer of the SportsBook app consists of a collection of reusable components and composables that adhere to Material Design principles for a consistent and modern user interface.
 
@@ -138,6 +132,21 @@ Discuss the utility classes and extensions that are part of the project.
 - Coroutine Flow: For asynchronous data streaming.
 - Hilt: For dependency injection.
 - Jetpack Compose: For UI development.
+- AndroidX material3: Provides Material3 design components for modern UI.
+- JUnit Jupiter (JUnit 5): For unit testing.
+  
+## UI Tests
+Package `gr.sportsbook.presentation.screens` contains UI tests for various screen functionalities.
+- `SportsBookScreenTest`: Tests UI elements and interactions on the SportsBook screen.
+- `AppScreensRobot`: Helper class for UI testing navigation and interactions.
+
+## Unit Tests
+Package `gr.sportsbook.data.repository` contains unit tests for repository functionality.
+- `SportsRepositoryImplTest`: Tests repository functions with fake data.
+- `SportsApiFake`: Provides fake data and error responses for testing.
+
+Package `gr.sportsbook.utils` contains utility classes and unit tests.
+- `SportEventUtilsTest`: Tests utility functions for sorting and formatting sports events.
 
 ## Screenshots
 <table>
