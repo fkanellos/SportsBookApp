@@ -1,4 +1,4 @@
-package gr.sportsbook.data.remote.di
+package gr.sportsbook.di
 
 import android.app.Application
 import android.content.Context.MODE_PRIVATE

@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -16,12 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import gr.sportsbook.presentation.MainViewModel
 import gr.sportsbook.ui.components.AppIcon
 import gr.sportsbook.ui.components.AppSwitch
 import gr.sportsbook.ui.components.AppText
 import gr.sportsbook.ui.theme.ThemeIcon
-import gr.sportsbook.viewmodels.MainViewModel
 
 @Composable
 fun SwitchWithIcon(viewModel: MainViewModel) {
@@ -64,7 +68,10 @@ fun SwitchWithIcon(viewModel: MainViewModel) {
             Spacer(modifier = Modifier.weight(1f))
             AppSwitch(
                 checked = isDarkTheme,
-                onCheckedChange = null // We handle the click on the card itself
+                onCheckedChange = {viewModel.toggleTheme(!isDarkTheme)},
+                icon = if (isDarkTheme) Icons.Default.Check else Icons.Default.Close,
+                tint = if (isDarkTheme) Color.White else Color.Black,
+                contentDescription = "darkMode toggle"
             )
         }
     }

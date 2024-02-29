@@ -10,15 +10,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import gr.sportsbook.ui.components.AppText
+import gr.sportsbook.utils.toCountdownFormat
 import kotlinx.coroutines.delay
-import java.util.concurrent.TimeUnit
-
-fun formatCountdownTime(millisUntilFinished: Long): String {
-    val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 60
-    val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60
-    val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
-    return String.format("%02d:%02d:%02d", hours, minutes, seconds)
-}
 
 @Composable
 fun CountdownTimer(eventStartTimeMillis: Long, currentTimeMillis: Long = System.currentTimeMillis()) {
@@ -32,7 +25,7 @@ fun CountdownTimer(eventStartTimeMillis: Long, currentTimeMillis: Long = System.
     }
 
     val formattedTime = if (timeRemainingMillis > 0) {
-        formatCountdownTime(timeRemainingMillis)
+        timeRemainingMillis.toCountdownFormat()
     } else {
         "Event started"
     }

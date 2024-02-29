@@ -5,7 +5,7 @@ import gr.sportsbook.domain.preferences.Preferences
 
 class PreferencesHelper(
     private val sharedPreferences: SharedPreferences
-) : Preferences{
+) : Preferences {
 
     override fun saveFavorites(favoriteIds: Set<String>) {
         val editor = sharedPreferences.edit()
@@ -23,5 +23,13 @@ class PreferencesHelper(
 
     override fun setDarkThemeEnabled(isEnabled: Boolean) {
         sharedPreferences.edit().putBoolean("dark_theme", isEnabled).apply()
+    }
+
+    override fun setToggleEnabled(toggle: String, isEnabled: Boolean) {
+        sharedPreferences.edit().putBoolean(toggle, isEnabled). apply()
+    }
+
+    override fun isToggleEnabled(toggle: String): Boolean {
+        return sharedPreferences.getBoolean(toggle, false)
     }
 }

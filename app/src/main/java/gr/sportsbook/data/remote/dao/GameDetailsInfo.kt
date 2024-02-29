@@ -6,9 +6,9 @@ import com.squareup.moshi.Json
 
 data class GameDetailsInfo(
     @field:Json(name = "d")
-    val teamsInfo: String,
+    val eventName: String,
     @field:Json(name = "tt")
-    val eventStartingTime: Long,
+    val eventStartingTime: Int,
     @field:Json(name = "i")
     val eventId: String
 )

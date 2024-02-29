@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
 
 android {
@@ -19,9 +20,14 @@ android {
         multiDexEnabled = true
         resourceConfigurations += mutableListOf("en","el")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "gr.sportsbook.presentation.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+    testOptions {
+        unitTests.apply {
+            isIncludeAndroidResources = true
         }
     }
 
@@ -55,6 +61,7 @@ dependencies {
 
     implementation(Compose.compiler)
     implementation(Compose.ui)
+    implementation(Compose.uiAndroid)
     implementation(Compose.uiToolingPreview)
     implementation(Compose.hiltNavigationCompose)
     implementation(Compose.liveData)
@@ -92,13 +99,47 @@ dependencies {
 
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
+    kapt(DaggerHilt.hiltCompiler)
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation(DaggerHilt.hiltAndroid)
     implementation("androidx.test.ext:junit-ktx:1.1.5")
-    testImplementation("junit:junit:4.12")
-    kapt(DaggerHilt.hiltCompiler)
-
+    implementation("androidx.test:runner:1.5.2")
+    implementation("com.google.ar:core:1.41.0")
     implementation(platform(Compose.composeBom))
 
+    // JUnit Jupiter (JUnit 5) for unit testing
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+
+    // Kotlin coroutines testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // Mockito for mocking in tests
+    testImplementation("org.mockito:mockito-core:4.7.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+
+    // AssertK for fluent assertions in Kotlin
+    testImplementation("com.willowtreeapps.assertk:assertk:0.26.1")
+
+    // MockK for Kotlin specific mocking
+    testImplementation("io.mockk:mockk:1.12.5")
+
+    // MockWebServer for testing network calls
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+
+    // Turbine for testing flows
+    testImplementation("app.cash.turbine:turbine:0.7.0")
+
+    // Android compose UI testing
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.2")
+
+    // Dagger Hilt testing
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.45")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.50")
+
+    // Robolectric for Android framework mocking in tests
+    testImplementation("org.robolectric:robolectric:4.7.3")
 
 }

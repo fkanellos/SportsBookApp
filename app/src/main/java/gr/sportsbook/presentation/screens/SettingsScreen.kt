@@ -1,4 +1,4 @@
-package gr.sportsbook.ui.screens
+package gr.sportsbook.presentation.screens
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import gr.sportsbook.ui.composites.SwitchWithIcon
-import gr.sportsbook.viewmodels.MainViewModel
+import gr.sportsbook.presentation.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

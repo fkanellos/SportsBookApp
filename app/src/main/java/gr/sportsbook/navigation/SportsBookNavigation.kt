@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import gr.sportsbook.ui.screens.ProfileScreen
-import gr.sportsbook.ui.screens.SettingsScreen
-import gr.sportsbook.ui.screens.SportsBookScreen
+import gr.sportsbook.presentation.screens.ProfileScreen
+import gr.sportsbook.presentation.screens.SettingsScreen
+import gr.sportsbook.presentation.screens.SportsBookScreen
 
 @Composable
 fun SportsBookNavigation(
