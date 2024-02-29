@@ -124,7 +124,16 @@ The UI layer of the SportsBook app consists of a collection of reusable componen
 
 
 ### Utils
-Discuss the utility classes and extensions that are part of the project.
+The utils section of the SportsBook project contains utility functions that aid in sorting sports events and formatting countdown timers.
+
+#### SportEventUtils
+
+The `SportEventUtils` file contains the following utility functions:
+
+- `sortSportsFavorites`: Sorts a list of sports by favorites, ensuring that events marked as favorites appear first.
+- `sortSportEventByFavorites`: Sorts a list of sport events by favorites, ensuring that favorite events appear first.
+- `toCountdownFormat`: Formats a given duration in milliseconds into a countdown timer format (`HH:mm:ss`).
+
 
 ## Main Dependencies
 - Retrofit: For network calls.
