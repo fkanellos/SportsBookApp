@@ -22,9 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import gr.sportsbook.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,11 +77,10 @@ fun ProfileScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Welcome to Your Profile!",
+                        text = stringResource(id = R.string.profile_welcome_text),
                         style = MaterialTheme.typography.displayMedium,
                         textAlign = TextAlign.Center
                     )
-                    // Add more content here if needed
                 }
             }
         }
