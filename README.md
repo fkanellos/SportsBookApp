@@ -9,6 +9,15 @@ SportsBook is an Android application that showcases upcoming sports events. Buil
 - Countdown timer for each event.
 - Dark mode toggle for theme preference.
 
+## Main Dependencies
+- Retrofit: For network calls.
+- Moshi: For JSON parsing.
+- Coroutine Flow: For asynchronous data streaming.
+- Hilt: For dependency injection.
+- Jetpack Compose: For UI development.
+- AndroidX material3: Provides Material3 design components for modern UI.
+- JUnit Jupiter (JUnit 5): For unit testing.
+
 ## Architecture
 The app follows the Model-View-ViewModel (MVVM) architecture pattern:
 
@@ -17,7 +26,7 @@ The app follows the Model-View-ViewModel (MVVM) architecture pattern:
 - **ViewModel**: Acts as a bridge between the Model and View, managing UI-related data.
 
 
-### Data
+## Data
 The data layer includes:
 
 - **PreferencesHelper**: Manages user preferences, including favorites and theme settings.
@@ -26,10 +35,10 @@ The data layer includes:
 - **SportsRepositoryImpl**: Provides an abstraction over the data source and exposes data to the domain layer.
 
 
-### Domain
+## Domain
 The domain layer of the SportsBook application encapsulates the core business logic and defines interfaces for data access, error handling, and user preferences.
 
-#### Error Handling
+### Error Handling
 
 The error handling mechanism is robust, ensuring that the app can gracefully handle and recover from errors. It includes:
 
@@ -37,14 +46,14 @@ The error handling mechanism is robust, ensuring that the app can gracefully han
 - `ErrorType`: An enumeration that classifies errors into categories such as network issues, server errors, or general errors.
 - `ErrorAction`: Defines an action to resolve an error, such as a retry operation.
 
-#### Preferences
+### Preferences
 The `Preferences` interface abstracts the underlying storage mechanism for user preferences, providing methods to:
 
 - Save and load favorite events.
 - Toggle the dark theme.
 - General toggle settings for various configurations.
 
-#### Repository
+### Repository
 
 The `SportsRepository` interface defines the contract for the data layer to fetch sports events. This abstraction allows for a clear separation of concerns and easier testing.
 
@@ -85,7 +94,7 @@ The presentation layer in SportsBook consists of three primary screens, each des
 - A `CenterAlignedTopAppBar` for easy navigation.
 - A welcoming message within a `Card` composable that greets users to their profile.
 
-## Settings Screen
+### Settings Screen
 
 `SettingsScreen` offers users the ability to customize their app experience. Key functionalities include:
 
@@ -100,10 +109,10 @@ The main screen of the app, `SportsBookScreen`, presents the upcoming sports eve
 - Includes a `SnackbarHost` for showing messages and actions based on events such as errors or updates.
 - A dynamic UI that responds to live data changes and user interactions.
 
-### UI
+## UI
 The UI layer of the SportsBook app consists of a collection of reusable components and composables that adhere to Material Design principles for a consistent and modern user interface.
 
-#### Components
+### Components
 
 - `ActionIconButton`: A customizable icon button used throughout the app for user actions.
 - `AppSwitch`: A toggle switch for settings such as the dark mode.
@@ -113,7 +122,7 @@ The UI layer of the SportsBook app consists of a collection of reusable componen
 - `Loader`: Displays a loading animation during data fetching operations.
 - `SportIcon`: Represents sports with icons.
 
-#### Composites
+### Composites
 
 - `CountDownTimer`: Shows the remaining time until an event starts.
 - `ErrorMessage`: Displays errors in a user-friendly manner.
@@ -123,26 +132,16 @@ The UI layer of the SportsBook app consists of a collection of reusable componen
 - `SwitchWithIcon`: A switch component paired with an icon for a more informative UI toggle.
 
 
-### Utils
+## Utils
 The utils section of the SportsBook project contains utility functions that aid in sorting sports events and formatting countdown timers.
 
-#### SportEventUtils
+### SportEventUtils
 
 The `SportEventUtils` file contains the following utility functions:
 
 - `sortSportsFavorites`: Sorts a list of sports by favorites, ensuring that events marked as favorites appear first.
 - `sortSportEventByFavorites`: Sorts a list of sport events by favorites, ensuring that favorite events appear first.
 - `toCountdownFormat`: Formats a given duration in milliseconds into a countdown timer format (`HH:mm:ss`).
-
-
-## Main Dependencies
-- Retrofit: For network calls.
-- Moshi: For JSON parsing.
-- Coroutine Flow: For asynchronous data streaming.
-- Hilt: For dependency injection.
-- Jetpack Compose: For UI development.
-- AndroidX material3: Provides Material3 design components for modern UI.
-- JUnit Jupiter (JUnit 5): For unit testing.
   
 ## UI Tests
 Package `gr.sportsbook.presentation.screens` contains UI tests for various screen functionalities.
